@@ -113,7 +113,7 @@ def create_thread(target):
 s = socket.socket()
 
 #binding Host And Port
-s.bind(('', 9999))
+s.bind(('', 6000))
 
 # Listening For Connection
 s.listen(1)

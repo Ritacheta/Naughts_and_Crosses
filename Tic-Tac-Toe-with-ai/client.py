@@ -75,7 +75,7 @@ def create_thread(target):
     thread.start()
 
 conn = socket.socket()
-conn.connect(('127.0.0.1',9999))
+conn.connect(('127.0.0.1',6000))
 
 def receive_data():
     global winner , draw , XO , conn
