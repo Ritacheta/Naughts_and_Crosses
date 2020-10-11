@@ -1,3 +1,4 @@
+# required libraries
 import pygame
 import sys 
 import time 
@@ -6,6 +7,7 @@ import socket
 import threading
 import os
 
+# positioning the game window
 os.environ['SDL_VIDEO_WINDOW_POS'] = '800,100'
 
 # declaring the global variables 
@@ -77,6 +79,7 @@ def create_thread(target):
 conn = socket.socket()
 conn.connect(('127.0.0.1',9999))
 
+# externally we are recieving data as recv() function has blocking nature
 def receive_data():
     global winner , draw , XO , conn
     while True:
@@ -232,6 +235,7 @@ def drawXO(row, col):
         XO = 'x'
     pygame.display.update() 
 
+# getting the row and column from the user input
 def user_click(x,y):  
 
     # get column of mouse click (1-3) 
@@ -268,6 +272,7 @@ def user_click(x,y):
         drawXO(row, col) 
         check_win() 
 
+# for reseting the game window
 def reset_game(): 
     global board, winner, XO, draw , count
     time.sleep(3) 

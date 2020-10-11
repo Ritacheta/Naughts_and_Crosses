@@ -108,7 +108,7 @@ def receive_data():
 # run the blocking functions in a separate thread
 create_thread(receive_data)
 
-
+# for creating the initiating window and drawing the vertical and horizontal lines
 def game_initiating_window():
     screen.blit(cover_img, (0, 0)) 
       
@@ -160,7 +160,7 @@ def draw_status():
 
     # text1 Is the message that displays what player you are and the other shows Who will play now
 
-
+# for checking winner
 def check_win():
     global board, winner, draw
 
@@ -199,7 +199,7 @@ def check_win():
         draw = True
     draw_status()
 
-
+# for drawing X and O in the game window
 def drawXO(row, col):
     global board, XO
 
@@ -248,7 +248,7 @@ def drawXO(row, col):
         XO = 'x'
     pygame.display.update()
 
-
+#for getting the row and column of the board
 def user_click(x, y):
 
     # get column of mouse click (1-3)

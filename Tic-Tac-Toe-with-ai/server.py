@@ -1,3 +1,4 @@
+# required libraries
 import socket
 import threading
 import os
@@ -5,13 +6,15 @@ import os
 # initializing variable
 player = 'o'
 computer = 'x'
- 
+
+# global variable for some need 
 global XO
 XO = 'o'
 
 # setting up a 3 * 3 board in canvas
 board = [['_','_','_'],['_','_','_'],['_','_','_']]
 
+# evaluating the winning directions where the score of winning is most
 def eval():
 	b = board
 	for i in range(3):
@@ -39,13 +42,14 @@ def eval():
 	if(not movesleft()):
 		return 0
 	return -1
-	
+#marking the positions of server's turn(computer I named)	
 def mark_x(x,y):
 	board[x][y] = computer
-
+#marking the positions of the client have taken(player I named)
 def mark_o(x,y):
 	board[x][y]= player
-	
+
+# this is the most required function for making the server automatic. It is evaluating the score and then take all posibilities and finally returning where the winning probablity is most	
 def miniMax(Max,depth,alpha,beta):
 	score=eval()
 	if(score!=-1):
@@ -77,6 +81,7 @@ def miniMax(Max,depth,alpha,beta):
 						return beta+depth
 		return beta+depth
 
+# this function is just calling the minimax function and then indicates the the best move of the server to be played
 def findnext():
 	bestnow=1000000
 	bestmove=[-1,-1]
@@ -90,7 +95,7 @@ def findnext():
 					bestnow=moveval
 					bestmove=[i,j]
 	return bestmove
-		
+#This is to getting the next move and also sending the position to the client		
 def move_ai():
 	coordx,coordy=findnext()
 	mark_o(coordx,coordy)

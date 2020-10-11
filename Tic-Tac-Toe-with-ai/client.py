@@ -6,6 +6,7 @@ import socket
 import threading
 import os
 
+#initializing the game window
 os.environ['SDL_VIDEO_WINDOW_POS'] = '800,100'
 
 # declaring the global variables 
@@ -76,7 +77,7 @@ def create_thread(target):
 
 conn = socket.socket()
 conn.connect(('127.0.0.1',6000))
-
+# this function is to avoid the blocking nature of recv() function
 def receive_data():
     global winner , draw , XO , conn
     while True:
@@ -99,6 +100,7 @@ def receive_data():
 # run the blocking functions in a separate thread
 create_thread(receive_data)
 
+# initialize the game screen
 def game_initiating_window():      
     screen.blit(cover_img, (0, 0)) 
       
@@ -115,6 +117,7 @@ def game_initiating_window():
     pygame.draw.line(screen, line_color, (0, height // 3 * 2), (width, height // 3 * 2), 7) 
     draw_status() 
 
+#this is to give the message to the players
 def draw_status():
 
     # getting the global variable draw
@@ -146,6 +149,7 @@ def draw_status():
     screen.blit(text1 , text_rect1)
     pygame.display.update() 
 
+# for checking whether there is a winner or draw. If there is a winner then it draw line over the 3 locations that has been matched
 def check_win():
     global board, winner, draw
 
@@ -183,7 +187,7 @@ def check_win():
     if(all([all(row) for row in board]) and winner is None):
         draw = True
     draw_status()
-
+# to blit the naughts and crosses on the game window
 def drawXO(row, col): 
     global board, XO 
 
@@ -231,7 +235,7 @@ def drawXO(row, col):
         screen.blit(o_img, (posy, posx)) 
         XO = 'x'
     pygame.display.update() 
-
+# it takes the user input and the return the row and column number
 def user_click(x,y):  
 
     # get column of mouse click (1-3) 
@@ -267,7 +271,7 @@ def user_click(x,y):
         global XO 
         drawXO(row, col) 
         check_win() 
-
+# for reseting the game
 def reset_game(): 
     global board, winner, XO, draw , count
     time.sleep(3) 
@@ -281,7 +285,7 @@ def reset_game():
     board = [[None]*3, [None]*3, [None]*3] 
 
 game_initiating_window() 
-
+# here the game starts
 while True: 
     if(conn == None):
         pygame.quit()
